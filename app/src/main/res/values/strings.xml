@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Material Info</string>
+    <string name="title_activity_cpu" translatable="false">CpuActivity</string>
+    <string name="activity_cpu_cpu_name">Name</string>
+    <string name="activity_cpu_cpu_arch">Architecture</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Material Info</string>
+    <string name="activity_cpu_cpu_name">Name</string>
+    <string name="activity_cpu_cpu_arch">Architektur</string>
+</resources>
