@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import net.dandraghas.materialinfo.activities.LaunchAndroidActivity
 import net.dandraghas.materialinfo.activities.LaunchCpuActivity
 import net.dandraghas.materialinfo.ui.theme.MaterialInfoTheme
 
@@ -45,7 +46,9 @@ fun MainActivityComponent() {
 			Button(onClick = { LaunchCpuActivity(context) }, modifier = buttonModifier) {
 				Text("CPU")
 			}
-			Button(onClick = { /*TODO*/}, modifier = buttonModifier) { Text("Button 2") }
+			Button(onClick = { LaunchAndroidActivity(context) }, modifier = buttonModifier) {
+				Text("Android")
+			}
 			Button(onClick = { /*TODO*/}, modifier = buttonModifier) { Text("Button 3") }
 		}
 	}

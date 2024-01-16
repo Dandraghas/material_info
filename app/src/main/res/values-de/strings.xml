@@ -5,4 +5,7 @@
     <string name="activity_cpu_cpu_arch">Architektur</string>
     <string name="activity_cpu_abis64">Unterstützte 64-Bit ABI\'s</string>
     <string name="activity_cpu_abis32">Unterstützte 32-Bit ABI\'s</string>
+    <string name="activity_android_kernel_version">Kernel Version</string>
+    <string name="activity_android_version_name">Codename</string>
+    <string name="activity_android_version">Version</string>
 </resources>
