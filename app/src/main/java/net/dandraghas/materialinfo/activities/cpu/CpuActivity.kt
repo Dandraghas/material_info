@@ -64,7 +64,7 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
 		)
 		Divider()
 		for (coreNumber in cpuFreqs.indices) {
-			val frequencyText = "CPU $coreNumber: ${cpuFreqs[coreNumber]} MHz"
+			val frequencyText = "${getString(context, "activity_cpu_cpu_freq_core")} $coreNumber ${getString(context, "activity_cpu_cpu_freq_clock")}: ${cpuFreqs[coreNumber]} MHz"
 			Text(text = frequencyText)
 			Divider()
 		}

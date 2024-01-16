@@ -8,4 +8,6 @@
     <string name="activity_android_kernel_version">Kernel Version</string>
     <string name="activity_android_version_name">Codename</string>
     <string name="activity_android_version">Version</string>
+    <string name="activity_cpu_cpu_freq_core">Kern</string>
+    <string name="activity_cpu_cpu_freq_clock">Uhr</string>
 </resources>
