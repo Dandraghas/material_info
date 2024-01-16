@@ -11,4 +11,6 @@
     <string name="activity_android_version">Version</string>
     <string name="activity_cpu_cpu_freq_core">Core</string>
     <string name="activity_cpu_cpu_freq_clock">Clock</string>
+    <string name="activity_cpu_cpu_freq_range_core">Core</string>
+    <string name="activity_cpu_cpu_freq_range_frequency_range">Frequency range</string>
 </resources>

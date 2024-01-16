@@ -84,4 +84,34 @@ object Cpu {
 			return IntArray(0)
 		}
 	}
+
+	data class CpuFrequencyRange(val minFrequency: Long, val maxFrequency: Long)
+
+	fun getCpuFrequencyRanges(): List<CpuFrequencyRange> {
+		val numCores = Runtime.getRuntime().availableProcessors()
+		val cpuFrequencyRanges = mutableListOf<CpuFrequencyRange>()
+
+		for (coreNumber in 0 until numCores) {
+			val minFreqFile = "/sys/devices/system/cpu/cpu$coreNumber/cpufreq/cpuinfo_min_freq"
+			val maxFreqFile = "/sys/devices/system/cpu/cpu$coreNumber/cpufreq/cpuinfo_max_freq"
+
+			try {
+				val minFrequency =
+					BufferedReader(FileReader(minFreqFile)).use { reader ->
+						reader.readLine()?.toLongOrNull()?.div(1000) ?: 0
+					}
+
+				val maxFrequency =
+					BufferedReader(FileReader(maxFreqFile)).use { reader ->
+						reader.readLine()?.toLongOrNull()?.div(1000) ?: 0
+					}
+
+				cpuFrequencyRanges.add(CpuFrequencyRange(minFrequency, maxFrequency))
+			} catch (e: IOException) {
+				e.printStackTrace()
+			}
+		}
+
+		return cpuFrequencyRanges
+	}
 }

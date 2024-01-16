@@ -18,6 +18,7 @@ import kotlinx.coroutines.delay
 import net.dandraghas.materialinfo.ui.theme.MaterialInfoTheme
 import net.dandraghas.materialinfo.utils.Cpu.getCPUFrequencies
 import net.dandraghas.materialinfo.utils.Cpu.getCpuArch
+import net.dandraghas.materialinfo.utils.Cpu.getCpuFrequencyRanges
 import net.dandraghas.materialinfo.utils.Cpu.getCpuName
 import net.dandraghas.materialinfo.utils.Cpu.getSupportedCpuAbis32
 import net.dandraghas.materialinfo.utils.Cpu.getSupportedCpuAbis64
@@ -47,6 +48,7 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
 	var cpuFreqs by remember { mutableStateOf(getCPUFrequencies()) }
 	val abis32 = getSupportedCpuAbis32()
 	val abis64 = getSupportedCpuAbis64()
+	val cpu_freq_ranges = getCpuFrequencyRanges()
 
 	LaunchedEffect(Unit) {
 		while (true) {
@@ -64,8 +66,17 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
 		)
 		Divider()
 		for (coreNumber in cpuFreqs.indices) {
-			val frequencyText = "${getString(context, "activity_cpu_cpu_freq_core")} $coreNumber ${getString(context, "activity_cpu_cpu_freq_clock")}: ${cpuFreqs[coreNumber]} MHz"
+			val frequencyText =
+				"${getString(context, "activity_cpu_cpu_freq_core")} $coreNumber ${getString(context, "activity_cpu_cpu_freq_clock")}: ${cpuFreqs[coreNumber]} MHz"
 			Text(text = frequencyText)
+			Divider()
+		}
+
+		cpu_freq_ranges.forEachIndexed { index, range ->
+			Text(
+				text =
+					"${getString(context, "activity_cpu_cpu_freq_range_core")} $index ${getString(context, "activity_cpu_cpu_freq_range_frequency_range")}: ${range.minFrequency} - ${range.maxFrequency} MHz"
+			)
 			Divider()
 		}
 
