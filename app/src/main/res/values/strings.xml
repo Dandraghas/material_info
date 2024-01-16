@@ -3,4 +3,6 @@
     <string name="title_activity_cpu" translatable="false">CpuActivity</string>
     <string name="activity_cpu_cpu_name">Name</string>
     <string name="activity_cpu_cpu_arch">Architecture</string>
+    <string name="activity_cpu_abis64">Supported 64-Bit ABI\'S</string>
+    <string name="activity_cpu_abis32">Supported 32-Bit ABI\'S</string>
 </resources>

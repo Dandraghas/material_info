@@ -20,6 +20,8 @@ import net.dandraghas.materialinfo.utils.cpu.getCpuArch
 import net.dandraghas.materialinfo.utils.cpu.getCpuName
 import net.dandraghas.materialinfo.utils.cpu.getCPUFrequencies
 import net.dandraghas.materialinfo.utils.Translation.getString
+import net.dandraghas.materialinfo.utils.cpu.getSupportedCpuAbis32
+import net.dandraghas.materialinfo.utils.cpu.getSupportedCpuAbis64
 
 class CpuActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,8 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
     val cpuName = getCpuName()
     val cpuArch = getCpuArch()
     var cpuFreqs by remember { mutableStateOf(getCPUFrequencies()) }
+    val abis32 = getSupportedCpuAbis32()
+    val abis64 = getSupportedCpuAbis64()
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -70,6 +74,18 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
             Text(text = frequencyText)
             Divider()
         }
+
+        Text(
+            text = "${getString(context, "activity_cpu_abis64")}: ${abis64.joinToString()}",
+        )
+
+        Divider()
+
+        Text(
+            text = "${getString(context, "activity_cpu_abis32")}: ${abis32.joinToString()}",
+        )
+
+        Divider()
     }
 }
 

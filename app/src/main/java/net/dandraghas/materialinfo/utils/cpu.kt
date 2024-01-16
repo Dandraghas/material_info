@@ -24,6 +24,10 @@ object cpu {
         return stringBuilder.toString()
     }
 
+    fun getSupportedCpuAbis32(): Array<String> = Build.SUPPORTED_32_BIT_ABIS
+
+    fun getSupportedCpuAbis64(): Array<String> = Build.SUPPORTED_64_BIT_ABIS
+
     fun getCpuArch(): String {
         val supportedAbis = Build.SUPPORTED_ABIS
 
