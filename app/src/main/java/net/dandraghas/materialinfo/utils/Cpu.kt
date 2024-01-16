@@ -6,7 +6,7 @@ import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
 
-object cpu {
+object Cpu {
 	fun readCpuInfo(): String {
 		val cpuInfoFile = "/proc/cpuinfo"
 		val stringBuilder = StringBuilder()

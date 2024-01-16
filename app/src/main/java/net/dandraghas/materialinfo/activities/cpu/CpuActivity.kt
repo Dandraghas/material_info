@@ -16,12 +16,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
 import net.dandraghas.materialinfo.ui.theme.MaterialInfoTheme
+import net.dandraghas.materialinfo.utils.Cpu.getCPUFrequencies
+import net.dandraghas.materialinfo.utils.Cpu.getCpuArch
+import net.dandraghas.materialinfo.utils.Cpu.getCpuName
+import net.dandraghas.materialinfo.utils.Cpu.getSupportedCpuAbis32
+import net.dandraghas.materialinfo.utils.Cpu.getSupportedCpuAbis64
 import net.dandraghas.materialinfo.utils.Translation.getString
-import net.dandraghas.materialinfo.utils.cpu.getCPUFrequencies
-import net.dandraghas.materialinfo.utils.cpu.getCpuArch
-import net.dandraghas.materialinfo.utils.cpu.getCpuName
-import net.dandraghas.materialinfo.utils.cpu.getSupportedCpuAbis32
-import net.dandraghas.materialinfo.utils.cpu.getSupportedCpuAbis64
 
 class CpuActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
