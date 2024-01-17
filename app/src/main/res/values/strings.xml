@@ -17,4 +17,5 @@
     <string name="title_activity_display">Display</string>
     <string name="activity_display_refresh_rate">Refresh rate</string>
     <string name="activity_display_resolution">Resolution</string>
+    <string name="activity_cpu_flags">Flags</string>
 </resources>

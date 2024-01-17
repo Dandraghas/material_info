@@ -21,6 +21,7 @@ import net.dandraghas.materialinfo.ui.theme.MaterialInfoTheme
 import net.dandraghas.materialinfo.utils.Cpu.getAverageCpuFrequency
 import net.dandraghas.materialinfo.utils.Cpu.getCPUFrequencies
 import net.dandraghas.materialinfo.utils.Cpu.getCpuArch
+import net.dandraghas.materialinfo.utils.Cpu.getCpuFlags
 import net.dandraghas.materialinfo.utils.Cpu.getCpuFrequencyRanges
 import net.dandraghas.materialinfo.utils.Cpu.getCpuName
 import net.dandraghas.materialinfo.utils.Cpu.getMaxRangeCpuFrequency
@@ -54,6 +55,8 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
 	val abis32 = getSupportedCpuAbis32()
 	val abis64 = getSupportedCpuAbis64()
 	val cpu_freq_ranges = getCpuFrequencyRanges()
+	val cpuFlags = getCpuFlags()
+	val uniqueFlags = cpuFlags.flatten().distinct()
 
 	LaunchedEffect(Unit) {
 		while (true) {
@@ -69,6 +72,12 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
 		Text(
 			text = "${getString(context, "activity_cpu_cpu_arch")}: $cpuArch",
 		)
+		Divider()
+
+		Text(
+			text = "${getString(context, "activity_cpu_flags")}: ${uniqueFlags.joinToString()}",
+		)
+
 		Divider()
 
 		val cpuFreqList =

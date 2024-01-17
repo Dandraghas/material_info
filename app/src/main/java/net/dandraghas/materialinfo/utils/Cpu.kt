@@ -60,6 +60,46 @@ object Cpu {
 		}
 	}
 
+	fun getCpuFlags(): List<List<String>> {
+		val cpuInfoFile = "/proc/cpuinfo"
+		val cpuFlags = mutableListOf<List<String>>()
+
+		try {
+			BufferedReader(FileReader(cpuInfoFile)).use { reader ->
+				val currentFlags = mutableListOf<String>()
+
+				reader.lines().forEach { line ->
+					val trimmedLine = line.trim()
+
+					if (trimmedLine.startsWith("processor")) {
+						if (currentFlags.isNotEmpty()) {
+							cpuFlags.add(currentFlags.toList())
+							currentFlags.clear()
+						} else {
+							Log.w(
+								"CpuUtils",
+								"getCpuFlags: No flags found in processor section $trimmedLine"
+							)
+						}
+					}
+
+					if (trimmedLine.startsWith("Features") || trimmedLine.startsWith("flags")) {
+						val flags = trimmedLine.split(":").getOrNull(1)?.trim()
+						flags?.let { currentFlags.addAll(it.split(" ")) }
+					}
+				}
+
+				if (currentFlags.isNotEmpty()) {
+					cpuFlags.add(currentFlags.toList())
+				}
+			}
+		} catch (e: Exception) {
+			e.printStackTrace()
+		}
+
+		return cpuFlags
+	}
+
 	fun getAverageCpuFrequency(): Int {
 		return getCPUFrequencies().average().toInt()
 	}

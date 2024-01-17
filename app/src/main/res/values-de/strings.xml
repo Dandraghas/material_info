@@ -18,4 +18,5 @@
     <string name="title_activity_display">Anzeige</string>
     <string name="activity_display_refresh_rate">Aktualisierungsrate</string>
     <string name="activity_display_resolution">Auflösung</string>
+    <string name="activity_cpu_flags">Flaggen</string>
 </resources>
