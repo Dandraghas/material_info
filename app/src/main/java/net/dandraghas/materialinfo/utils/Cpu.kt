@@ -85,6 +85,18 @@ object Cpu {
 		}
 	}
 
+	fun getAverageCpuFrequency(): Int {
+		return getCPUFrequencies().average().toInt()
+	}
+
+	fun getMaxRangeCpuFrequency(): Int {
+		return getCpuFrequencyRanges().maxOf { it.maxFrequency }.toInt()
+	}
+
+	fun getMinRangeCpuFrequency(): Int {
+		return getCpuFrequencyRanges().minOf { it.minFrequency }.toInt()
+	}
+
 	data class CpuFrequencyRange(val minFrequency: Long, val maxFrequency: Long)
 
 	fun getCpuFrequencyRanges(): List<CpuFrequencyRange> {

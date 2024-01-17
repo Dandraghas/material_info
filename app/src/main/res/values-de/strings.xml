@@ -12,4 +12,5 @@
     <string name="activity_cpu_cpu_freq_clock">Uhr</string>
     <string name="activity_cpu_cpu_freq_range_core">Kern</string>
     <string name="activity_cpu_cpu_freq_range_frequency_range">Frequenzbereich</string>
+    <string name="activity_cpu_cpu_freq_average">Durchschnittliche CPU Frequenz</string>
 </resources>

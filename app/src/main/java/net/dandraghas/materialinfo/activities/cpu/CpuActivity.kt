@@ -15,11 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
+import net.dandraghas.materialinfo.ui.components.ExpandableList
+import net.dandraghas.materialinfo.ui.components.SectionData
 import net.dandraghas.materialinfo.ui.theme.MaterialInfoTheme
+import net.dandraghas.materialinfo.utils.Cpu.getAverageCpuFrequency
 import net.dandraghas.materialinfo.utils.Cpu.getCPUFrequencies
 import net.dandraghas.materialinfo.utils.Cpu.getCpuArch
 import net.dandraghas.materialinfo.utils.Cpu.getCpuFrequencyRanges
 import net.dandraghas.materialinfo.utils.Cpu.getCpuName
+import net.dandraghas.materialinfo.utils.Cpu.getMaxRangeCpuFrequency
+import net.dandraghas.materialinfo.utils.Cpu.getMinRangeCpuFrequency
 import net.dandraghas.materialinfo.utils.Cpu.getSupportedCpuAbis32
 import net.dandraghas.materialinfo.utils.Cpu.getSupportedCpuAbis64
 import net.dandraghas.materialinfo.utils.Translation.getString
@@ -65,20 +70,40 @@ fun CpuActivityComponent(modifier: Modifier = Modifier) {
 			text = "${getString(context, "activity_cpu_cpu_arch")}: $cpuArch",
 		)
 		Divider()
-		for (coreNumber in cpuFreqs.indices) {
-			val frequencyText =
-				"${getString(context, "activity_cpu_cpu_freq_core")} $coreNumber ${getString(context, "activity_cpu_cpu_freq_clock")}: ${cpuFreqs[coreNumber]} MHz"
-			Text(text = frequencyText)
-			Divider()
-		}
 
-		cpu_freq_ranges.forEachIndexed { index, range ->
-			Text(
-				text =
-					"${getString(context, "activity_cpu_cpu_freq_range_core")} $index ${getString(context, "activity_cpu_cpu_freq_range_frequency_range")}: ${range.minFrequency} - ${range.maxFrequency} MHz"
+		val cpuFreqList =
+			listOf(
+				SectionData(
+					headerText =
+						"${getString(context, "activity_cpu_cpu_freq_average")}: ${getAverageCpuFrequency()}",
+					items =
+						cpuFreqs.mapIndexed { index, frequency ->
+							"${getString(context, "activity_cpu_cpu_freq_core")} $index ${getString(context, "activity_cpu_cpu_freq_clock")}: $frequency MHz"
+						}
+				),
 			)
-			Divider()
-		}
+
+		val cpuFreqRangeList =
+			listOf(
+				SectionData(
+					headerText =
+						"${getString(context, "activity_cpu_cpu_freq_range_frequency_range")}: ${getMinRangeCpuFrequency()} - ${getMaxRangeCpuFrequency()} MHz",
+					items =
+						cpu_freq_ranges.mapIndexed { index, frequency ->
+							"${getString(context, "activity_cpu_cpu_freq_core")} $index ${getString(context, "activity_cpu_cpu_freq_clock")}: ${frequency.minFrequency} - ${frequency.maxFrequency} MHz"
+						}
+				),
+			)
+
+		ExpandableList(
+			sections = cpuFreqList,
+		)
+
+		Divider()
+
+		ExpandableList(sections = cpuFreqRangeList)
+
+		Divider()
 
 		Text(
 			text = "${getString(context, "activity_cpu_abis64")}: ${abis64.joinToString()}",
