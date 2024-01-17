@@ -7,40 +7,18 @@ import java.io.FileReader
 import java.io.IOException
 
 object Cpu {
-	fun readCpuInfo(): String {
-		val cpuInfoFile = "/proc/cpuinfo"
-		val stringBuilder = StringBuilder()
-
-		try {
-			BufferedReader(FileReader(cpuInfoFile)).use { reader ->
-				reader.forEachLine { line -> stringBuilder.append(line).append("\n") }
-			}
-		} catch (e: Exception) {
-			stringBuilder.append("Error reading CPU info: ${e.message}")
-		}
-
-		return stringBuilder.toString()
-	}
-
 	fun getSupportedCpuAbis32(): Array<String> = Build.SUPPORTED_32_BIT_ABIS
 
 	fun getSupportedCpuAbis64(): Array<String> = Build.SUPPORTED_64_BIT_ABIS
 
 	fun getCpuArch(): String {
-		val supportedAbis = Build.SUPPORTED_ABIS
-
-		if (supportedAbis.isNotEmpty()) {
-			return supportedAbis[0]
-		}
-
-		return "Unknown"
+		return Build.SUPPORTED_ABIS.firstOrNull() ?: "Unknown"
 	}
 
 	fun getCpuName(): String {
 		val br = BufferedReader(FileReader("/proc/cpuinfo"))
 
 		var hardwareInfo: String? = null
-		var inHardwareSection = false
 
 		br.useLines { lines ->
 			lines.forEach { line ->
@@ -50,38 +28,35 @@ object Cpu {
 					if (key == "model_name") key = "cpu_model"
 
 					if (key == "Hardware") {
-						inHardwareSection = true
-						hardwareInfo = data[1].trim()
+						hardwareInfo = data[1].trim().substringAfter("=").trim()
 					}
 				}
 			}
 		}
 
-		return hardwareInfo?.substringAfter("=")?.trim() ?: ""
+		return hardwareInfo ?: ""
 	}
 
 	fun getCPUFrequencies(): IntArray {
-		try {
+		return try {
 			val numCores = Runtime.getRuntime().availableProcessors()
-
 			val cpuFrequencies = IntArray(numCores)
 
 			for (coreNumber in 0 until numCores) {
 				val cpuFreqFile = "/sys/devices/system/cpu/cpu$coreNumber/cpufreq/scaling_cur_freq"
 
-				BufferedReader(FileReader(cpuFreqFile)).use { reader ->
-					val frequencyStr = reader.readLine()
-
-					cpuFrequencies[coreNumber] =
-						frequencyStr?.toIntOrNull()?.div(1000) ?: 0 // Convert from kHz to MHz
-				}
+				BufferedReader(FileReader(cpuFreqFile))
+					.use { reader ->
+						reader.readLine()?.toIntOrNull()?.div(1000) ?: 0 // Convert from kHz to MHz
+					}
+					.also { frequency -> cpuFrequencies[coreNumber] = frequency }
 			}
 
 			Log.d("CPU", "getCPUFrequencies: " + cpuFrequencies.contentToString())
-			return cpuFrequencies
+			cpuFrequencies
 		} catch (e: IOException) {
 			e.printStackTrace()
-			return IntArray(0)
+			IntArray(0)
 		}
 	}
 
@@ -90,24 +65,24 @@ object Cpu {
 	}
 
 	fun getMaxRangeCpuFrequency(): Int {
-		return getCpuFrequencyRanges().maxOf { it.maxFrequency }.toInt()
+		return getCpuFrequencyRanges().maxOfOrNull { it.maxFrequency }?.toInt() ?: 0
 	}
 
 	fun getMinRangeCpuFrequency(): Int {
-		return getCpuFrequencyRanges().minOf { it.minFrequency }.toInt()
+		return getCpuFrequencyRanges().minOfOrNull { it.minFrequency }?.toInt() ?: 0
 	}
 
 	data class CpuFrequencyRange(val minFrequency: Long, val maxFrequency: Long)
 
 	fun getCpuFrequencyRanges(): List<CpuFrequencyRange> {
-		val numCores = Runtime.getRuntime().availableProcessors()
-		val cpuFrequencyRanges = mutableListOf<CpuFrequencyRange>()
+		return try {
+			val numCores = Runtime.getRuntime().availableProcessors()
+			val cpuFrequencyRanges = mutableListOf<CpuFrequencyRange>()
 
-		for (coreNumber in 0 until numCores) {
-			val minFreqFile = "/sys/devices/system/cpu/cpu$coreNumber/cpufreq/cpuinfo_min_freq"
-			val maxFreqFile = "/sys/devices/system/cpu/cpu$coreNumber/cpufreq/cpuinfo_max_freq"
+			for (coreNumber in 0 until numCores) {
+				val minFreqFile = "/sys/devices/system/cpu/cpu$coreNumber/cpufreq/cpuinfo_min_freq"
+				val maxFreqFile = "/sys/devices/system/cpu/cpu$coreNumber/cpufreq/cpuinfo_max_freq"
 
-			try {
 				val minFrequency =
 					BufferedReader(FileReader(minFreqFile)).use { reader ->
 						reader.readLine()?.toLongOrNull()?.div(1000) ?: 0
@@ -119,11 +94,12 @@ object Cpu {
 					}
 
 				cpuFrequencyRanges.add(CpuFrequencyRange(minFrequency, maxFrequency))
-			} catch (e: IOException) {
-				e.printStackTrace()
 			}
-		}
 
-		return cpuFrequencyRanges
+			cpuFrequencyRanges
+		} catch (e: IOException) {
+			e.printStackTrace()
+			emptyList()
+		}
 	}
 }
