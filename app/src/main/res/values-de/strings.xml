@@ -13,4 +13,6 @@
     <string name="activity_cpu_cpu_freq_range_core">Kern</string>
     <string name="activity_cpu_cpu_freq_range_frequency_range">Frequenzbereich</string>
     <string name="activity_cpu_cpu_freq_average">Durchschnittliche CPU Frequenz</string>
+    <string name="activity_display_refresh_rate">Aktualisierungsrate</string>
+    <string name="activity_display_resolution">Auflösung</string>
 </resources>

@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import net.dandraghas.materialinfo.activities.LaunchAndroidActivity
 import net.dandraghas.materialinfo.activities.LaunchCpuActivity
+import net.dandraghas.materialinfo.activities.LaunchDisplayActivity
 import net.dandraghas.materialinfo.ui.theme.MaterialInfoTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +50,9 @@ fun MainActivityComponent() {
 			Button(onClick = { LaunchAndroidActivity(context) }, modifier = buttonModifier) {
 				Text("Android")
 			}
-			Button(onClick = { /*TODO*/}, modifier = buttonModifier) { Text("Button 3") }
+			Button(onClick = { LaunchDisplayActivity(context) }, modifier = buttonModifier) {
+				Text("Display")
+			}
 		}
 	}
 }

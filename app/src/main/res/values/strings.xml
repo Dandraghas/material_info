@@ -14,4 +14,7 @@
     <string name="activity_cpu_cpu_freq_range_core">Core</string>
     <string name="activity_cpu_cpu_freq_range_frequency_range">Frequency range</string>
     <string name="activity_cpu_cpu_freq_average">Average Cpu Frequency</string>
+    <string name="title_activity_display" translatable="false">DisplayActivity</string>
+    <string name="activity_display_refresh_rate">Refresh rate</string>
+    <string name="activity_display_resolution">Resolution</string>
 </resources>
