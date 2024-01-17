@@ -19,6 +19,7 @@ import net.dandraghas.materialinfo.activities.LaunchAndroidActivity
 import net.dandraghas.materialinfo.activities.LaunchCpuActivity
 import net.dandraghas.materialinfo.activities.LaunchDisplayActivity
 import net.dandraghas.materialinfo.ui.theme.MaterialInfoTheme
+import net.dandraghas.materialinfo.utils.Translation.getString
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,13 +46,13 @@ fun MainActivityComponent() {
 	Box(modifier = Modifier.fillMaxSize()) {
 		Column(modifier = Modifier.fillMaxSize()) {
 			Button(onClick = { LaunchCpuActivity(context) }, modifier = buttonModifier) {
-				Text("CPU")
+				Text(getString(context, "title_activity_cpu"))
 			}
 			Button(onClick = { LaunchAndroidActivity(context) }, modifier = buttonModifier) {
-				Text("Android")
+				Text(getString(context, "title_activity_android"))
 			}
 			Button(onClick = { LaunchDisplayActivity(context) }, modifier = buttonModifier) {
-				Text("Display")
+				Text(getString(context, "title_activity_display"))
 			}
 		}
 	}

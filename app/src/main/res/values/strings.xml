@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Material Info</string>
-    <string name="title_activity_cpu" translatable="false">CpuActivity</string>
+    <string name="title_activity_cpu">Cpu</string>
     <string name="activity_cpu_cpu_name">Name</string>
     <string name="activity_cpu_cpu_arch">Architecture</string>
     <string name="activity_cpu_abis64">Supported 64-Bit ABI\'S</string>
     <string name="activity_cpu_abis32">Supported 32-Bit ABI\'S</string>
-    <string name="title_activity_android" translatable="false">AndroidActivity</string>
+    <string name="title_activity_android">Android</string>
     <string name="activity_android_kernel_version">Kernel Version</string>
     <string name="activity_android_version_name">Codename</string>
     <string name="activity_android_version">Version</string>
@@ -14,7 +14,7 @@
     <string name="activity_cpu_cpu_freq_range_core">Core</string>
     <string name="activity_cpu_cpu_freq_range_frequency_range">Frequency range</string>
     <string name="activity_cpu_cpu_freq_average">Average Cpu Frequency</string>
-    <string name="title_activity_display" translatable="false">DisplayActivity</string>
+    <string name="title_activity_display">Display</string>
     <string name="activity_display_refresh_rate">Refresh rate</string>
     <string name="activity_display_resolution">Resolution</string>
 </resources>
